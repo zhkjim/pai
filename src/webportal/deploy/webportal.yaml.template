@@ -52,6 +52,10 @@ spec:
           value: "{{ clusterinfo['prometheusinfo']['node_exporter_port'] }}"
         - name: PROM_SCRAPE_TIME
           value: {{ clusterinfo['prometheusinfo']['scrape_interval'] * 10}}s
+        - name: WEBPORTAL_PLUGINS
+          # A raw JSON formatted value is required here.
+          value: |
+            {{ clusterinfo['webportalinfo']['plugins'] }}
         ports:
         - name: webportal
           containerPort: 8080
