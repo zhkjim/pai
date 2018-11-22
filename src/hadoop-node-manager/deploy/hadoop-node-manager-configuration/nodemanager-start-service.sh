@@ -17,6 +17,10 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+export NV_DRIVER=${DRIVER_PATH}/current
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NV_DRIVER/lib:$NV_DRIVER/lib64
+export PATH=$PATH:$NV_DRIVER/bin
+
 # If docker needn't, pls remove them
 cp -r docker/* /usr/bin/
 docker &
@@ -25,7 +29,7 @@ docker run hello-world
 
 
 ## GPU test
-driverpath="/var/drivers/nvidia/current"
+driverpath="${DRIVER_PATH}/current"
 ls -A $driverpath
 if [ "`ls -A $driverpath`" = "" ]
 then

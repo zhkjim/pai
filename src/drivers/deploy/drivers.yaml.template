@@ -54,6 +54,9 @@ spec:
           name: etc-path-ld
         - mountPath: /etc/docker
           name: etc-path-docker
+        env:
+        - name: DRIVER_PATH
+          value: /var/drivers/nvidia/ # TODO
         readinessProbe:
           exec:
             command:

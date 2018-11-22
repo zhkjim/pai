@@ -26,7 +26,7 @@ fi
 echo CONFIG_RUNTIME is $CONFIG_RUNTIME
 
 KERNEL_FULL_VERSION=`uname -r`
-CURRENT_DRIVER=/var/drivers/nvidia/current
+CURRENT_DRIVER=${DRIVER_PATH}/current
 
 function configDockerRuntime {
     cp /etc/docker/daemon.json /etc/docker/daemon.json.before_config_runtime
@@ -42,13 +42,18 @@ function dockerRuntimeConfigured {
     return $?
 }
 
+function warningAboutMisconfig {
+    # TODO
+    return 0
+}
+
 function nvidiaPresent {
   [[ -f /proc/driver/nvidia/version ]] || return 1
   grep -q $NVIDIA_VERSION /proc/driver/nvidia/version || return 2
   lsmod | grep -qE "^nvidia" || return 3
   lsmod | grep -qE "^nvidia_uvm" || return 3
   [[ -e /dev/nvidia0 ]] || return 4
-  [[ -e /var/drivers/nvidia/$NVIDIA_VERSION/lib64/libnvidia-ml.so ]] || return 5
+  [[ -e ${DRIVER_PATH}/$NVIDIA_VERSION/lib64/libnvidia-ml.so ]] || return 5
 
   [[ -e /etc/ld.so.conf.d/nvidia-drivers.conf ]] || return 6
   if test $CONFIG_RUNTIME == "true" && ! dockerRuntimeConfigured ; then
