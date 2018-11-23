@@ -107,8 +107,8 @@ spec:
               fieldPath: status.hostIP
         - name: LOGGING_LEVEL
           value: INFO
-        - name: DRIVER_PATH
-          value: /var/drivers/nvidia
+        - name: NV_DRIVER
+          value: /var/drivers/nvidia/current
         volumeMounts:
         - mountPath: /root/.docker
           name: docker-cred-volume

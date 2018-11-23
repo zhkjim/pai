@@ -49,8 +49,8 @@ def parse_smi_xml_result(smi):
 
 def collect_gpu_info():
     """ in some cases, nvidia-smi may block indefinitely, caller should be aware of this """
-    driver_path = os.environ["DRIVER_PATH"]
-    bin_path = os.path.join(driver_path, "current/bin/nvidia-smi")
+    driver_path = os.environ["NV_DRIVER"]
+    bin_path = os.path.join(driver_path, "bin/nvidia-smi")
     try:
         logger.info("call %s to get gpu metrics", bin_path) # used to check if nvidia-smi hangs
 

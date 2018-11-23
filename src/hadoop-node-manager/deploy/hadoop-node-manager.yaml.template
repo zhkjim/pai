@@ -92,8 +92,8 @@ spec:
           value: {{ clusterinfo['dockerregistryinfo']['prefix'] }}hadoop-run:{{ clusterinfo['dockerregistryinfo']['docker_tag'] }}
         - name: YARN_NODEMANAGER_HEAPSIZE
           value: "3072"
-        - name: DRIVER_PATH
-          value: /var/drivers/nvidia
+        - name: NV_DRIVER
+          value: /var/drivers/nvidia/current
       imagePullSecrets:
       - name: {{ clusterinfo['dockerregistryinfo']['secretname'] }}
       volumes:

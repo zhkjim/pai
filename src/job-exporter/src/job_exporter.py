@@ -295,13 +295,13 @@ def get_gpu_count(path):
 def config_environ():
     """ since job-exporter needs to call nvidia-smi, we need to change
     LD_LIBRARY_PATH to correct value """
-    driver_path = os.environ.get("DRIVER_PATH")
-    logger.debug("DRIVER_PATH is %s", driver_path)
+    driver_path = os.environ.get("NV_DRIVER")
+    logger.debug("NV_DRIVER is %s", driver_path)
 
     ld_path = os.environ.get("LD_LIBRARY_PATH", "")
     os.environ["LD_LIBRARY_PATH"] = ld_path + os.pathsep + \
-            os.path.join(driver_path, "current/lib") + os.pathsep + \
-            os.path.join(driver_path, "current/lib64")
+            os.path.join(driver_path, "lib") + os.pathsep + \
+            os.path.join(driver_path, "lib64")
 
     logger.debug("LD_LIBRARY_PATH is %s", os.environ["LD_LIBRARY_PATH"])
 

@@ -17,7 +17,6 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-export NV_DRIVER=${DRIVER_PATH}/current
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NV_DRIVER/lib:$NV_DRIVER/lib64
 export PATH=$PATH:$NV_DRIVER/bin
 
@@ -29,9 +28,8 @@ docker run hello-world
 
 
 ## GPU test
-driverpath="${DRIVER_PATH}/current"
-ls -A $driverpath
-if [ "`ls -A $driverpath`" = "" ]
+ls -A $NV_DRIVER
+if [ "`ls -A $NV_DRIVER`" = "" ]
 then
   echo no gpu
   $HADOOP_YARN_HOME/bin/yarn nodemanager
