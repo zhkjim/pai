@@ -42,11 +42,6 @@ function dockerRuntimeConfigured {
     return $?
 }
 
-function warningAboutMisconfig {
-    # TODO
-    return 0
-}
-
 function nvidiaPresent {
   [[ -f /proc/driver/nvidia/version ]] || return 1
   grep -q $NVIDIA_VERSION /proc/driver/nvidia/version || return 2

@@ -53,7 +53,7 @@ spec:
         - name: ETCD_URI
           value: {{ clusterinfo['restserverinfo']['etcd_uri'] }}
         - name: DRIVER_PATH
-          value: /var/drivers/nvidia/ # TODO
+          value: /var/drivers/nvidia
 {% if clusterinfo['restserverinfo']['github_owner'] %}
         - name: GITHUB_OWNER
           value: {{ clusterinfo['restserverinfo']['github_owner'] }}

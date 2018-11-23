@@ -40,7 +40,7 @@ spec:
             add:
             - ALL
         volumeMounts:
-        - mountPath: /var/drivers # TODO
+        - mountPath: /var/drivers
           name: driver-path
         - mountPath: /dev
           name: device-path
@@ -56,7 +56,7 @@ spec:
           name: etc-path-docker
         env:
         - name: DRIVER_PATH
-          value: /var/drivers/nvidia/ # TODO
+          value: /var/drivers/nvidia
         readinessProbe:
           exec:
             command:
