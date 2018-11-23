@@ -40,7 +40,7 @@ spec:
             add:
             - ALL
         volumeMounts:
-        - mountPath: /var/drivers
+        - mountPath: /var/drivers # TODO
           name: driver-path
         - mountPath: /dev
           name: device-path
