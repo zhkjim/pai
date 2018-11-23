@@ -57,6 +57,8 @@ spec:
         env:
         - name: DRIVER_PATH
           value: /var/drivers/nvidia
+        - name: PRE_INSTALLED_NV_DRIVER_PATH
+          value: /usr/local/nvidia # the path user has pre-installed nvidia driver
         readinessProbe:
           exec:
             command:

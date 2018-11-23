@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Copyright (c) Microsoft Corporation
 # All rights reserved.
@@ -17,27 +17,28 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-export NV_DRIVER=${DRIVER_PATH}/$NVIDIA_VERSION
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NV_DRIVER/lib:$NV_DRIVER/lib64
-export PATH=$PATH:$NV_DRIVER/bin
+CONFIG_RUNTIME=false
 
-if lspci | grep -qE "[0-9a-fA-F][0-9a-fA-F]:[0-9a-fA-F][0-9a-fA-F].[0-9] (3D|VGA compatible) controller: NVIDIA Corporation.*"; then
-    if [ -d "$PRE_INSTALLED_NV_DRIVER_PATH" ]; then
-        echo pre installed nvidia driver detectived, skip driver installation
-        ln -s $PRE_INSTALLED_NV_DRIVER_PATH $DRIVER_PATH/current
-    else
-        /bin/bash install-nvidia-drivers || exit $?
-        echo NVIDIA gpu detected, drivers installed
-
-        /bin/bash enable-nvidia-persistenced-mode.sh || exit $?
-    fi
-else
-    echo NVIDIA gpu not detected, skipping driver installation
+if [ "$#" -eq "1" -a "$1" == "--config-runtime" ] ; then
+    CONFIG_RUNTIME=true
 fi
 
-./config-docker-runtime.sh "$@"
+echo CONFIG_RUNTIME is $CONFIG_RUNTIME
 
-mkdir -p /jobstatus
-touch /jobstatus/jobok
+function configDockerRuntime {
+    cp /etc/docker/daemon.json /etc/docker/daemon.json.before_config_runtime
 
-while true; do sleep 1000; done
+    jq -s '.[0] * .[1]' docker-config-with-nvidia-runtime.json /etc/docker/daemon.json > tmp
+    mv tmp /etc/docker/daemon.json
+
+    pkill -SIGHUP dockerd
+}
+
+function dockerRuntimeConfigured {
+    cat /etc/docker/daemon.json | jq -e 'has("default-runtime")' &> /dev/null
+    return $?
+}
+
+if test $CONFIG_RUNTIME == "true" && ! dockerRuntimeConfigured ; then
+    configDockerRuntime
+fi

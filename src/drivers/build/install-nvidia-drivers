@@ -17,30 +17,8 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-CONFIG_RUNTIME=false
-
-if [ "$#" -eq "1" -a "$1" == "--config-runtime" ] ; then
-    CONFIG_RUNTIME=true
-fi
-
-echo CONFIG_RUNTIME is $CONFIG_RUNTIME
-
 KERNEL_FULL_VERSION=`uname -r`
 CURRENT_DRIVER=${DRIVER_PATH}/current
-
-function configDockerRuntime {
-    cp /etc/docker/daemon.json /etc/docker/daemon.json.before_config_runtime
-
-    jq -s '.[0] * .[1]' docker-config-with-nvidia-runtime.json /etc/docker/daemon.json > tmp
-    mv tmp /etc/docker/daemon.json
-
-    pkill -SIGHUP dockerd
-}
-
-function dockerRuntimeConfigured {
-    cat /etc/docker/daemon.json | jq -e 'has("default-runtime")' &> /dev/null
-    return $?
-}
 
 function nvidiaPresent {
   [[ -f /proc/driver/nvidia/version ]] || return 1
@@ -51,9 +29,6 @@ function nvidiaPresent {
   [[ -e ${DRIVER_PATH}/$NVIDIA_VERSION/lib64/libnvidia-ml.so ]] || return 5
 
   [[ -e /etc/ld.so.conf.d/nvidia-drivers.conf ]] || return 6
-  if test $CONFIG_RUNTIME == "true" && ! dockerRuntimeConfigured ; then
-      return 7
-  fi
   return 0
 }
 
@@ -118,10 +93,6 @@ done
 ls -la /dev/nvidia*
 
 ldconfig
-
-if [ $CONFIG_RUNTIME == "true" ] ; then
-    configDockerRuntime
-fi
 
 echo === Check if everything is loaded
 nvidiaPresent || exit $?
