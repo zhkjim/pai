@@ -64,6 +64,6 @@ RUN wget --no-verbose http://us.download.nvidia.com/XFree86/Linux-x86_64/$NVIDIA
     ./NVIDIA-Linux-x86_64-$NVIDIA_VERSION.run --extract-only && \
     rm ./NVIDIA-Linux-x86_64-$NVIDIA_VERSION.run
 
-COPY build/* build/enable-nvidia-persistenced-mode.sh $STAGE_DIR/
+COPY build/* $STAGE_DIR/
 
 CMD /bin/bash install-all-drivers

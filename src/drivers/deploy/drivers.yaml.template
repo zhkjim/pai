@@ -54,6 +54,8 @@ spec:
           name: etc-path-ld
         - mountPath: /etc/docker
           name: etc-path-docker
+        - mountPath: /usr/local/nvidia # TODO
+          name: pre-install-nv-driver-path
         env:
         - name: DRIVER_PATH
           value: /var/drivers/nvidia
@@ -100,3 +102,6 @@ spec:
       - name: etc-path-docker
         hostPath:
           path: /etc/docker
+      - name: pre-install-nv-driver-path
+        hostPath:
+          path: /user/local/nvidia # TODO make it argument
