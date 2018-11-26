@@ -71,8 +71,7 @@ spec:
             memory: "2Gi"
           requests:
             memory: "256Mi"
-        command:
-        - "./install-all-drivers"
+        command: ["bash", "-x", "./install-all-drivers"]
         {% if clusterinfo['drivers']['set-nvidia-runtime'] %}
         args:
         - "--config-runtime"

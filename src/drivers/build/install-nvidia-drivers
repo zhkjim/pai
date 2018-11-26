@@ -33,7 +33,12 @@ function nvidiaPresent {
 }
 
 echo ======== If NVIDIA present exit early =========
-nvidiaPresent && [[ -L $CURRENT_DRIVER ]] && exit 0
+if [ nvidiaPresent ] ; then
+    if [[ ! -L $CURRENT_DRIVER ]]; then
+        ln -s $DRIVER_PATH/$NVIDIA_VERSION $CURRENT_DRIVER
+    fi
+    exit 0
+fi
 
 echo ======== If NVIDIA driver already running uninstall it =========
 lsmod | grep -qE "^nvidia" &&
