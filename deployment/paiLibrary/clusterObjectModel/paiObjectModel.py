@@ -245,6 +245,7 @@ class paiObjectModel:
             serviceDict["clusterinfo"]["restserverinfo"].get("github-path")
         serviceDict["clusterinfo"]["restserverinfo"]["etcd_uri"] = self.getEtcdUri()
         serviceDict["clusterinfo"]["restserverinfo"]["yarn_uri"] = self.getYarnWebPortalUri()
+        serviceDict["clusterinfo"]["restserverinfo"]["k8s_apiserver_uri"] = self.getK8sApiServerUri()
 
         # section: webportal
 
