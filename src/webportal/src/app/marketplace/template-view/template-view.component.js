@@ -19,7 +19,7 @@
 require('json-editor'); /* global JSONEditor */
 require('slick-carousel');
 require('slick-carousel/slick/slick.css');
-const url = require('url');
+const querystring = require('querystring');
 
 require('./template-view.component.css');
 const template = require('./template-view.component.ejs');
@@ -212,7 +212,7 @@ function search(query) {
 $('#sidebar-menu--template-view').addClass('active');
 
 $(function() {
-  const query = url.parse(window.location.href, true).query;
+  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
   $('#content-wrapper').html(template(query));
   $('#search').submit(function(event) {
     event.preventDefault();

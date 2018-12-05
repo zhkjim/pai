@@ -30,7 +30,7 @@ require('datatables.net-buttons-bs/css/buttons.bootstrap.css');
 require('datatables.net-select-bs/js/select.bootstrap.js');
 require('datatables.net-select-bs/css/select.bootstrap.css');
 require('./job-view.component.scss');
-const url = require('url');
+const querystring = require('querystring');
 // const moment = require('moment/moment.js');
 const breadcrumbComponent = require('../breadcrumb/breadcrumb.component.ejs');
 const loadingComponent = require('../loading/loading.component.ejs');
@@ -540,7 +540,7 @@ $(document).ready(() => {
   };
   resizeContentWrapper();
   $('#sidebar-menu--job-view').addClass('active');
-  const query = url.parse(window.location.href, true).query;
+  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
   if (query['jobName']) {
     loadJobDetail(query['username'], query['jobName']);
     $('#content-wrapper').css({'overflow': 'auto'});

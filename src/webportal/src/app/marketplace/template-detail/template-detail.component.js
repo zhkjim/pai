@@ -18,7 +18,7 @@
 const template = require('./template-detail.component.ejs');
 const webportalConfig = require('../../config/webportal.config.js');
 require('./template-detail.component.css');
-const url = require('url');
+const querystring = require('querystring');
 
 $('#sidebar-menu--template-view').addClass('active');
 
@@ -31,7 +31,7 @@ const context = {
 };
 
 $(function() {
-    const query = url.parse(window.location.href, true).query;
+    const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
     const type = {
         'job': 'job',
         'docker': 'dockerimage',

@@ -20,7 +20,7 @@ const itemTemplate = require('./template-list.item.component.ejs');
 const webportalConfig = require('../../config/webportal.config.js');
 const githubThrottled = require('../template-common/github-throttled');
 require('./template-list.component.css');
-const url = require('url');
+const querystring = require('querystring');
 
 $('#sidebar-menu--template-view').addClass('active');
 
@@ -65,7 +65,7 @@ function render(data) {
 }
 
 $(function() {
-  const query = url.parse(window.location.href, true).query;
+  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
 
   if (!(query.type in {job: true, docker: true, script: true, data: true})) {
     return window.location.href = '/';

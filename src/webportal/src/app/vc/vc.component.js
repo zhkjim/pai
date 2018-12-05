@@ -22,7 +22,7 @@ require('datatables.net-bs/js/dataTables.bootstrap.js');
 require('datatables.net-bs/css/dataTables.bootstrap.css');
 require('datatables.net-plugins/sorting/natural.js');
 require('datatables.net-plugins/sorting/title-numeric.js');
-const url = require('url');
+const querystring = require('querystring');
 //
 require('./vc.component.scss');
 const vcComponent = require('./vc.component.ejs');
@@ -86,5 +86,5 @@ $(document).ready(() => {
     resizeContentWrapper();
   };
   resizeContentWrapper();
-  loadData(url.parse(window.location.href, true).query['vcName']);
+  loadData(querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1))['vcName']);
 });
