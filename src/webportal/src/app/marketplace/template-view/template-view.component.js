@@ -212,7 +212,11 @@ function search(query) {
 $('#sidebar-menu--template-view').addClass('active');
 
 $(function() {
+<<<<<<< HEAD
   const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
+=======
+  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+>>>>>>> 499f4e56f027c340308ee96606cf33616edf85b7
   $('#content-wrapper').html(template(query));
   $('#search').submit(function(event) {
     event.preventDefault();
