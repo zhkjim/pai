@@ -122,7 +122,7 @@ $(document).ready(() => {
       }
     }, false);
 
-    const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+    const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
     const type = query.type;
     const name = query.name;
     const username = query.user;

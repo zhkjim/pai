@@ -157,7 +157,7 @@ $(document).ready(() => {
   window.onresize = function() {
     resize();
   };
-  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+  const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
   const type = query.type;
   const username = query.user;
   const jobname = query.jobname;

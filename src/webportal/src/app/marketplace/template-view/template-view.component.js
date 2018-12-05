@@ -212,7 +212,7 @@ function search(query) {
 $('#sidebar-menu--template-view').addClass('active');
 
 $(function() {
-  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+  const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
   $('#content-wrapper').html(template(query));
   $('#search').submit(function(event) {
     event.preventDefault();

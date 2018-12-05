@@ -54,7 +54,7 @@ $(document).ready(() => {
           cookies.set('token', data.token, {expires: expiration});
           cookies.set('admin', data.admin, {expires: expiration});
           cookies.set('hasGitHubPAT', data.hasGitHubPAT, {expires: expiration});
-          const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+          const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
           window.location.replace(query.origin ? query.origin : '/');
         }
       },

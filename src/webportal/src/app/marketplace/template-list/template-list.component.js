@@ -65,7 +65,7 @@ function render(data) {
 }
 
 $(function() {
-  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+  const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
 
   if (!(query.type in {job: true, docker: true, script: true, data: true})) {
     return window.location.href = '/';

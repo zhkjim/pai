@@ -31,7 +31,7 @@ const context = {
 };
 
 $(function() {
-    const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+    const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
     const type = {
         'job': 'job',
         'docker': 'dockerimage',

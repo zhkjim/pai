@@ -35,7 +35,7 @@ $(document).ready(() => {
   $('#sidebar-menu--cluster-view').addClass('active');
   $('#sidebar-menu--cluster-view--hardware').addClass('active');
   let instance = '';
-  const query = querystring.parse(window.location.href.slice(window.location.href.indexOf('?')+1));
+  const query = querystring.parse(window.location.search.replace(/^\?+/, ''));
   if (query['instance']) {
     instance = query['instance'];
   } else {
